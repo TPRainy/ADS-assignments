@@ -1,0 +1,60 @@
+Task 2:
+In what order will the nodes of the graph above be visited using
+a Breadth First Search considering the source node is A?
+Provide the detailed trace of the breadth-first search using.
+
+Graph Adjacency Lists:
+A: C B D
+B: A C E G
+C: A B D
+D: C A
+E: G F B
+F: G E
+G: F B
+
+Initialization:
+Mark A as visited and enqueue A.
+Queue: [A]
+
+1. Dequeue A
+Adj[A] = [C, B, D]
+Check C: unvisited -> Mark C as visited, enqueue C. Queue: [C]
+Check B: unvisited -> Mark B as visited, enqueue B. Queue: [C, B]
+Check D: unvisited -> Mark D as visited, enqueue D. Queue: [C, B, D]
+
+2. Dequeue C
+Adj[C] = [A, B, D]
+A, B, and D are already visited.
+Queue: [B, D]
+
+3. Dequeue B
+Adj[B] = [A, C, E, G]
+A and C are already visited.
+Check E: unvisited -> Mark E as visited, enqueue E. Queue: [D, E]
+Check G: unvisited -> Mark G as visited, enqueue G. Queue: [D, E, G]
+
+4. Dequeue D
+Adj[D] = [C, A]
+C and A are already visited.
+Queue: [E, G]
+
+5. Dequeue E
+Adj[E] = [G, F, B]
+G is already visited.
+Check F: unvisited -> Mark F as visited, enqueue F. Queue: [G, F]
+B is already visited.
+
+6. Dequeue G
+Adj[G] = [F, B]
+F and B are already visited.
+Queue: [F]
+
+7. Dequeue F
+Adj[F] = [G, E]
+G and E are already visited.
+Queue: []
+
+Queue is empty. Search is complete.
+
+Final BFS visit order:
+A, C, B, D, E, G, F

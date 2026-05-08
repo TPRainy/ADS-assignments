@@ -1,0 +1,46 @@
+Task 4: Shortest Path from Edinburgh to Dundee
+
+Graph Edges and Weights (Distances):
+Edinburgh - Glasgow: 70
+Edinburgh - Stirling: 50
+Glasgow - Stirling: 50
+Edinburgh - Perth: 100
+Perth - Dundee: 60
+Perth - Stirling 40
+
+Initialization:
+distTo[Edinburgh] = 0
+distTo[All other nodes] = infinity
+Priority Queue (PQ): [(Edinburgh, 0)]
+
+Step 1: Process Edinburgh
+Dequeue Edinburgh (Distance: 0)
+Relax edge Edinburgh -> Stirling (50): distTo[Stirling] becomes 0 + 50 = 50. edgeTo[Stirling] = Edinburgh.
+Relax edge Edinburgh -> Glasgow (70): distTo[Glasgow] becomes 0 + 70 = 70. edgeTo[Glasgow] = Edinburgh.
+Relax edge Edinburgh -> Perth (100): distTo[Perth] becomes 0 + 100 = 100. edgeTo[Perth] = Edinburgh.
+PQ state: [(Stirling, 50), (Glasgow, 70), (Perth, 100)]
+
+Step 2: Process Stirling
+Dequeue Stirling (Distance: 50)
+Relax edge Stirling -> Glasgow (50): 50 + 50 = 100. NOT less than current distTo[Glasgow] (70). No update.
+Relax edge Stirling -> Perth (40): 50 + 40 = 90. 90 is less than current distTo[Perth] (100). Update! distTo[Perth] = 90. edgeTo[Perth] = Stirling.
+PQ state: [(Glasgow, 70), (Perth, 90)]
+
+Step 3: Process Glasgow
+Dequeue Glasgow (Distance: 70)
+Neighbors (Edinburgh, Stirling) already have shorter paths. No updates.
+PQ state: [(Perth, 90)]
+
+Step 4: Process Perth
+Dequeue Perth (Distance: 90)
+Relax edge Perth -> Dundee (60): distTo[Dundee] becomes 90 + 60 = 150. edgeTo[Dundee] = Perth.
+PQ state: [(Dundee, 150)]
+
+Step 5: Process Dundee
+Dequeue Dundee (Distance: 150)
+Neighbors already have shorter paths. No updates.
+PQ state: [] (Empty)
+
+Final Result:
+Shortest distance to Dundee: 150
+Final Shortest Path: Edinburgh -> Stirling -> Perth -> Dundee

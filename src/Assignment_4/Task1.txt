@@ -1,0 +1,63 @@
+Task 1: Consider the following graph with vertices and their adjacency lists.
+In what order will the nodes be visited using a Depth First Search considering the source node is A?
+Provide the detailed trace of the depth-first search
+
+Graph Adjacency Lists:
+A: C B D
+B: A C E G
+C: A B D
+D: C A
+E: G F B
+F: G E
+G: F B
+
+1. dfs(A)
+   Mark A as visited. (Current path: A)
+   Adj[A] = [C, B, D].
+   Next unvisited neighbor is C -> call dfs(C)
+
+   2. dfs(C)
+      Mark C as visited. (Current path: A, C)
+      Adj[C] = [A, B, D].
+      A is already visited.
+      Next unvisited neighbor is B -> call dfs(B)
+
+      3. dfs(B)
+         Mark B as visited. (Current path: A, C, B)
+         Adj[B] = [A, C, E, G].
+         A and C are already visited.
+         Next unvisited neighbor is E -> call dfs(E)
+
+         4. dfs(E)
+            Mark E as visited. (Current path: A, C, B, E)
+            Adj[E] = [G, F, B].
+            Next unvisited neighbor is G -> call dfs(G)
+
+            5. dfs(G)
+               Mark G as visited. (Current path: A, C, B, E, G)
+               Adj[G] = [F, B].
+               Next unvisited neighbor is F -> call dfs(F)
+
+               6. dfs(F)
+                  Mark F as visited. (Current path: A, C, B, E, G, F)
+                  Adj[F] = [G, E].
+                  Both G and E are visited. Return to dfs(G).
+
+               Back in dfs(G): check next neighbor B (already visited). Return to dfs(E).
+
+            Back in dfs(E): check next neighbors F (visited) and B (visited). Return to dfs(B).
+
+         Back in dfs(B): check next neighbor G (already visited). Return to dfs(C).
+
+      Back in dfs(C): check next neighbor D -> call dfs(D)
+
+      7. dfs(D)
+         Mark D as visited. (Current path: A, C, B, E, G, F, D)
+         Adj[D] = [C, A].
+         Both C and A are visited. Return to dfs(C).
+
+      Back in dfs(C): no more neighbors. Return to dfs(A).
+
+   Back in dfs(A): check next neighbors B (visited) and D (visited). Done.
+
+Final DFS visit order: A, C, B, E, G, F, D
